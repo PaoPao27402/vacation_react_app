@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'admin_dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_db_name',
-        'USER': 'your_db_user',
-        'PASSWORD': 'your_db_password',
+        'NAME': 'travel_agency',
+        'USER': 'root',
+        'PASSWORD': 'P@22word2710',
         'HOST': 'localhost',  # Or your MySQL server address
         'PORT': '3306',       # Default MySQL port
     }
