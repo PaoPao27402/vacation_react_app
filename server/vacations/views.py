@@ -1,11 +1,21 @@
+# vacations/views.py
+from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
 from .models import Vacation, User
-from .serializers import VacationSerializer, UserSerializer
+from .serializer import VacationSerializer, UserSerializer
 import datetime
 from django.db.models import Sum
+
+print("Importing serializers...")
+from .serializer import VacationSerializer, UserSerializer
+print("Serializers imported successfully.")
+
+class HomeView(APIView):
+    def get(self, request):
+        return HttpResponse("Welcome to the Vacation Management System")
 
 class LoginView(APIView):
     def post(self, request):
@@ -43,3 +53,24 @@ class StatisticsView(APIView):
             "total_likes": total_likes,
             "likes_distribution": likes_distribution
         })
+
+class UserCountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        total_users = User.objects.count()
+        return Response({"total_users": total_users})
+
+class LikesCountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        total_likes = Vacation.objects.aggregate(Sum('likes'))['likes__sum'] or 0
+        return Response({"total_likes": total_likes})
+
+class LikesDistributionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        likes_distribution = Vacation.objects.values('destination').annotate(likes=Sum('likes'))
+        return Response(likes_distribution)
