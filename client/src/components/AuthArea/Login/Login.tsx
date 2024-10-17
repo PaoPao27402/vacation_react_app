@@ -1,18 +1,18 @@
-// src/components/ScreensArea/Login.tsx
+// src/components/AuthArea/Login/Login.tsx
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import authService from '../../service/authService';
+import { useNavigate } from 'react-router-dom';
+import authService from '../../../service/authService';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await authService.login(email, password);
-      history.push('/statistics');
+      navigate('/statistics');
     } catch (error) {
       console.error('Login failed', error);
     }
