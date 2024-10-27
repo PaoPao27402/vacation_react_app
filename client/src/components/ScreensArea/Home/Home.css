@@ -1,0 +1,17 @@
+/* Home.css */
+
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .neumorphic-card {
+    width: 600px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px #b8b9be, -5px -5px 10px #ffffff;
+    background: #e0e0e0;
+    border-radius: 15px;
+  }
+  

@@ -1,16 +1,17 @@
 # vacations/views.py
 from django.http import HttpResponse
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView  # type: ignore
+from rest_framework.response import Response # type: ignore
+from rest_framework.permissions import IsAuthenticated # type: ignore
 from django.contrib.auth import authenticate, login, logout
 from .models import Vacation, User
-from .serializer import VacationSerializer, UserSerializer
+from .serializers import VacationSerializer, UserSerializer
 import datetime
 from django.db.models import Sum
+from rest_framework import generics   # type: ignore
 
 print("Importing serializers...")
-from .serializer import VacationSerializer, UserSerializer
+from .serializers import VacationSerializer, UserSerializer
 print("Serializers imported successfully.")
 
 class HomeView(APIView):
@@ -74,3 +75,23 @@ class LikesDistributionView(APIView):
     def get(self, request):
         likes_distribution = Vacation.objects.values('destination').annotate(likes=Sum('likes'))
         return Response(likes_distribution)
+
+class VacationListCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        vacations = Vacation.objects.all()
+        serializer = VacationSerializer(vacations, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = VacationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+# Add VacationDetailView here
+class VacationDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Vacation.objects.all()
+    serializer_class = VacationSerializer

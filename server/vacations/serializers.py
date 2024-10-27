@@ -1,5 +1,5 @@
 # vacations/serializers.py
-from rest_framework import serializers
+from rest_framework import serializers # type: ignore
 from .models import Vacation, User
 
 class VacationSerializer(serializers.ModelSerializer):
