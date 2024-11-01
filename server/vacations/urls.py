@@ -1,3 +1,4 @@
+# vacations/urls.py
 from django.urls import path
 from .views import LoginView, LogoutView, StatisticsView, UserCountView, LikesCountView, LikesDistributionView, VacationListCreateView, VacationDetailView
 

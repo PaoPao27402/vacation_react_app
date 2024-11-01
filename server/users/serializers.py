@@ -1,15 +1,15 @@
-# users/serializers.py
-from rest_framework import serializers  # type: ignore
+from rest_framework import serializers  
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'password']  # Include password for registration
+        fields = ['id', 'email', 'password']  
         extra_kwargs = {
-            'password': {'write_only': True},  # Make password write-only
+            'password': {'write_only': True},  
         }
 
     def validate_email(self, value):
@@ -22,4 +22,18 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])  # Hash the password
         user.save()
         return user
- 
+    
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+        user = authenticate(request=self.context.get('request'), username=email, password=password)
+
+        if user is None:
+            raise serializers.ValidationError('Invalid email or password.')
+        attrs['user'] = user
+        return attrs
+

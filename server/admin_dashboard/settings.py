@@ -32,7 +32,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Add this line at the top
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,8 +70,8 @@ DATABASES = {
         'NAME': 'travel_agency',
         'USER': 'root',
         'PASSWORD': 'P@22word2710',
-        'HOST': 'localhost',  # Or your MySQL server address
-        'PORT': '3306',       # Default MySQL port
+        'HOST': 'localhost',  
+        'PORT': '3306',       
     }
 }
 
@@ -109,5 +109,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Update this if your React app runs on a different URL
+    "http://localhost:3000",  # Update for production origin
 ]
+CORS_ALLOW_CREDENTIALS = True  # To allow cookies in cross-origin requests, if needed
+
+# DRF Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+# Static and Media files
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Security for Production
+DEBUG = False  # Change to False in production
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # production domain
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
