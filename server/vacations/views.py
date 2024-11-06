@@ -1,9 +1,9 @@
 # vacations/views.py
 from django.http import HttpResponse
-from rest_framework import status, generics  # type: ignore
-from rest_framework.views import APIView  # type: ignore
-from rest_framework.response import Response # type: ignore
-from rest_framework.permissions import IsAuthenticated, IsAdminUser # type: ignore
+from rest_framework import status, generics  
+from rest_framework.views import APIView  
+from rest_framework.response import Response 
+from rest_framework.permissions import IsAuthenticated, IsAdminUser 
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Sum
 from django.utils import timezone
@@ -25,7 +25,6 @@ class LoginView(APIView):
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(request, email=email, password=password)
-
         # Check if user is admin
         if user is not None and user.is_staff:  
             login(request, user)

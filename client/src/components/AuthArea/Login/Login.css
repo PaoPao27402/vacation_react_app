@@ -1,18 +1,22 @@
-/* Login.css */
-
 .login-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Full height of the viewport */
+    background-color: #f8f9fa; /* Optional background color */
   }
   
-  .neumorphic-card {
-    width: 400px;
-    padding: 20px;
-    /* Add your neumorphic styles here */
-    box-shadow: 5px 5px 10px #b8b9be, -5px -5px 10px #ffffff;
-    background: #e0e0e0;
-    border-radius: 15px;
+  .login-card {
+    background-color: white; /* Background color of the card */
+    padding: 20px; /* Padding inside the card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 300px; /* Fixed width of the card (adjust as needed) */
+  }
+  
+  .card-action {
+    display: flex;
+    justify-content: center; /* Center the action buttons */
+    margin-top: 20px; /* Space above the actions */
   }
   

@@ -1,29 +1,45 @@
 // src/reducers/userReducer.tsx
 
-export interface UserState {
-    isLoggedIn: boolean;
-    email: string | null;
+import { AnyAction } from 'redux';
+
+export interface User {
+  password: string;
+  is_superuser: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
+type UserState = User | null;
+
+// Define action types
+interface UserLoggedInAction {
+  type: 'USER_LOGGED_IN';
+  payload: User;
+}
+
+interface LogoutAction {
+  type: 'LOGOUT';
+}
+
+type UserActionTypes = UserLoggedInAction | LogoutAction;
+
+const userReducer = (
+  state: UserState = null, 
+  action: UserActionTypes | AnyAction
+): UserState => {
+  switch (action.type) {
+    case 'USER_LOGGED_IN':
+      return action.payload;
+
+    case 'LOGOUT':
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      return null;
+
+    default:
+      return state;
   }
-  
-  const initialState: UserState = {
-    isLoggedIn: false,
-    email: null,
-  };
-  
-  type UserAction =
-    | { type: 'LOGIN'; payload: string }
-    | { type: 'LOGOUT' };
-  
-  const userReducer = (state = initialState, action: UserAction): UserState => {
-    switch (action.type) {
-      case 'LOGIN':
-        return { ...state, isLoggedIn: true, email: action.payload };
-      case 'LOGOUT':
-        return { ...state, isLoggedIn: false, email: null };
-      default:
-        return state;
-    }
-  };
-  
-  export default userReducer;
-  
+};
+
+export default userReducer;

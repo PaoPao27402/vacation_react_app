@@ -1,17 +1,19 @@
 // src/App.tsx
+
 import React from 'react';
 import Navbar from './components/LayoutArea/Layout/Navbar';
-import Routes from './components/RoutingArea/Routes';
+import AppRoutes from './components/RoutingArea/Routes';
 import './App.css';
 import 'ui-neumorphism/dist/index.css';
 
 const App: React.FC = () => {
-    return (
-      <div className="App">
-        <Navbar />
-        <Routes /> {/* Ensure that Routes does NOT contain a BrowserRouter */}
-      </div>
-    );
+  return (
+    <div className="App">
+      <Navbar />
+      <AppRoutes />
+    </div>
+  );
 };
 
 export default App;
+

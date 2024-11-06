@@ -1,0 +1,22 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies
+node_modules
+env/
+venv/
+
+# Cache
+__pycache__
+*.pyc
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+
+# OS
+.DS_Store

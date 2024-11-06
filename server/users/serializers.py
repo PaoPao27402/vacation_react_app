@@ -25,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
     
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    password = serializers.CharField()
+    password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
         email = attrs.get('email')
@@ -36,4 +36,3 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError('Invalid email or password.')
         attrs['user'] = user
         return attrs
-

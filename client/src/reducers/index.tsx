@@ -1,6 +1,6 @@
 // src/reducers/index.tsx
 
-import { combineReducers } from 'redux';
+import { combineReducers } from '@reduxjs/toolkit';
 import userReducer from './userReducer';
 
 // Combine reducers correctly
